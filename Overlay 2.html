@@ -1,0 +1,1406 @@
+
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        <style>
+            img {
+                top: 0px;
+                left: 0px;
+                height: 400px;
+                width: 1250px;
+            }
+            .clock {
+                position: fixed;
+                top: 8px;
+                left: 972px;
+                height: 46.2px;
+                width: 80px;
+                text-align: center;
+                vertical-align: middle;
+                padding-top: 0px;
+                color: white;
+                font-size: 25px;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                background-color: BLACK; 
+                border-style: inset;
+                border-width: 4px;
+                border-color: red;
+                border-right-color: red;
+                border-left-color: red;
+            }           
+            .match-banner {
+                position:absolute;
+                top: 8px;
+                left: 1045px;
+                height: 46.2px;
+                width: 213px;
+                font-size: 8px;
+                background-color: grey;
+                text-align: center;
+            }
+            .blue-match-score {
+                position: relative;
+                width: 500px;
+            }
+            .team-left {
+                position: absolute;
+                top: 8px;
+                left: 300px;
+                /* transform: translate(-50%, -50%); */
+                height: 46.2px;
+                width: 331px;
+                font-size: 25px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                border-style: inset;
+                border-width: 4px;
+                text-align: right;
+            }
+            .team-left-logo {
+                position: absolute;
+                top: 8px;
+                left: 300px;
+            }
+            .team-right {
+                position: absolute;
+                top: 8px;
+                left: 636px;
+                height: 46.2px;
+                width: 331px;
+                font-size: 25px;
+                font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                border-style:inset;
+                border-width: 4px;
+                text-align: right;
+            }
+            .blue-team {
+                position: fixed;
+                top: 100px;
+                left: 20px;
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                text-align: right;
+            }     
+            .bp1-bio {
+                top: 100px;
+                left: 0px
+            } 
+            .bp1-stats {
+                top: 100px;
+                left: 0px
+            }
+            .bp1-boost {
+                position: absolute;
+                top: 0px;
+                left: 10px;
+            }
+            .bp1-speed {
+                top: 100px;
+                left: 0px
+            }
+            .orange-team {
+                position: fixed;
+                top: 100px;
+                left: 800px;
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: white; 
+            }
+            /* .op1-bio {
+                position: absolute;
+                top: 10px;
+                left: 80px
+            } 
+            .op1-stats {
+                position: absolute;
+                top: 12px;
+                left: 80px
+            /* } */
+            .op1-boost {
+                position: absolute;
+                top: 25px;
+                left: 125px;
+            }
+            /* .op1-speed {
+                position: absolute;
+                top: 10px;
+                left: 90px
+            } */ 
+            .Goals img {
+                position: absolute;
+                top: 100px;
+                left: 0px;
+                font-size: 20px;
+            }
+            .statfeed_event {
+                position: fixed;
+                top: 250px;
+                left: 500px;
+                color: black;
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: white;
+            }
+            .player-card{
+                position: absolute;
+                /* top: 485px;
+                left: 10px; */
+                height: 55px;
+                width:250px;
+                text-align: center;
+                background: linear-gradient(black );
+            }
+            #player-card {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                /* top: 485px;
+                left: 3px; */
+                /* transform: translate(-50%, -50%);  */
+                top: 80px;
+                left: 20px;
+                width: 550px;
+                height: 50px;
+                color: black;
+                font-size: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                background-color: white;  
+            } 
+            /* #box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 200px;
+                height: 100px;
+                color: white;
+                font-family: 'Raleway';
+                font-size: 2.5rem;
+            } */
+            .gradient-border {
+                --borderWidth: 4px;
+                background: #1D1F20;
+                position: relative;
+                border-radius: var(--borderWidth);
+            }
+            .gradient-border:after {
+                content: '';
+                position: absolute;
+                top: calc(-1 * var(--borderWidth));
+                left: calc(-1 * var(--borderWidth));
+                height: calc(100% + var(--borderWidth) * 2);
+                width: calc(100% + var(--borderWidth) * 2);
+                /* background: linear-gradient(60deg, black, rgb(122, 0, 0), red, rgb(187, 50, 50), rgb(158, 158, 158)); */
+                background: linear-gradient(60deg, black, red, red, BLACK);
+                border-radius: calc(2 * var(--borderWidth));
+                z-index: -1;
+                animation: animatedgradient 3s ease alternate infinite;
+                background-size: 300% 300%;
+            }
+
+
+            @keyframes animatedgradient {
+                0% {
+                background-position: 0% 50%;
+                }
+                50% {
+                background-position: 100% 50%;
+                }
+                100% {
+                background-position: 0% 50%;
+                }
+            }
+
+            .target-boost {
+                position: absolute;
+                top: 00px;
+                left: 800px;
+            }
+            .target-titles {
+                color: white;
+                background-color: black;
+            }
+            .boost-circle {
+                position: absolute;
+                top: 10px;
+                left: 1000px;
+            }
+        </style>
+    </head>
+    <body>
+        <img src="C:\Users\Matt\Documents\Overlay\BASE SCORE BAR 4.png" alt="Base Score Bar">
+        <div class="scorebug">
+            <table class="match-banner">
+                <tr class="blue-match-score">
+                    <th class="team-name"></th>
+                    <td class="game1-score"></td>
+                    <td class="game2-score"></td>
+                    <td class="game3-score"></td>
+                    <td class="game4-score"></td>
+                    <td class="game5-score"></td>
+                    <td class="game6-score"></td>
+                    <td class="game7-score"></td>
+                </tr>
+                <tr class="match number">
+                    <th>Match</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                    <th>6</th>
+                    <th>7</th>
+                </tr>
+                <tr class="orange-match-score">
+                    <th class="team-name"></th>
+                    <td class="game1-score"></td>
+                    <td class="game2-score"></td>
+                    <td class="game3-score"></td>
+                    <td class="game4-score"></td>
+                    <td class="game5-score"></td>
+                    <td class="game6-score"></td>
+                    <td class="game7-score"></td>
+                </tr>
+            </table>
+            <table class="clock">
+                <th class="time"></th>     
+            </table>           
+            <table class="team-left">
+                <th class="name"></th>
+                <td class="score"></td>
+                <td class="color_primary"></th>
+                <td class="color_secondary"></th>
+            </table>
+            <table class="team-left-logo">
+                <th class="logo"></th>
+            </table>
+            <table class="team-right">
+                <th class="name"></th>
+                <td class="score"></td>
+                <td class="color_primary"></th>
+                <td class="color_secondary"></th>
+            </table>
+        <div class="blue-team">
+            <div class ="blue-player1">
+                <table class="bp1-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp1-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp1-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp1-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="blue-player2">
+                <table class="bp2-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp2-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp2-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp2-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="blue-player3">
+                <table class="bp3-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp3-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp3-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp3-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="blue-player4">
+                <table class="bp4-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp4-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp4-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp4-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="blue-player5">
+                <table class="bp5-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp5-stats">
+                    <td class="goals">
+                        <img src="C:\Users\Matt\Downloads\rl-svg-icons-master\goal.jpg" style="height: 5%;width: 25%">
+                    </td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp5-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp5-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="blue-player6">
+                <table class="bp6-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp6-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp6-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp6-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="blue-player7">
+                <table class="bp7-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp7-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp7-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp7-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="blue-player8">
+                <table class="bp8-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="bp8-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="bp8-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="bp8-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+        <div class="orange-team">
+            <div class ="orange-player1">
+                <table class="op1-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op1-stats">
+                    <td class="goals">
+                        <img src="C:\Users\Matt\Downloads\rl-svg-icons-master\goal.svg" style= "height: 20px; width: 20px">
+                    </td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op1-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op1-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="orange-player2">
+                <table class="op2-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op2-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op2-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op2-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="orange-player3">
+                <table class="op3-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op3-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op3-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op3-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="orange-player4">
+                <table class="op4-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op4-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op4-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op4-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="orange-player5">
+                <table class="op5-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op5-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op5-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op5-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="orange-player6">
+                <table class="op6-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op6-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op6-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op6-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="orange-player7">
+                <table class="op7-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op7-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op7-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op7-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+            <div class ="orange-player8">
+                <table class="op8-bio">
+                    <th class="name"></th>
+                    <td class="team"></td>
+                </table>
+                <table class="op8-stats">
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="saves"></td>
+                </table>
+                <table class="op8-boost">
+                    <td class="boost"></td>
+                </table>
+                <table class="op8-speed">
+                    <td class="speed"></td>
+                </table>
+            </div>
+        </div>
+            <table class="statfeed_event">
+                <tr class="event_name">
+                    <th class="event_name"></th>
+                </tr>
+                <tr class="main_target">
+                    <th class="name"></th>
+                    <td class="id"></td>
+                    <td class="team_num"></td>
+                </tr>
+                <tr class="secondary_target">
+                    <th class="name"></th>
+                    <td class="id"></td>
+                    <td class="team_num"></td>
+                </tr>
+                <tr class="type">
+                    <th class="type"></th>
+                </tr>
+            </table>
+        </div><div class="gradient-border" id="player-card">
+             <br>
+             <table class="player-card" style="width:100%;height: 100%" cellpadding="0" cellspacing="0">
+                <div class="color-bg" ></div>
+                <div class="name-color-bg"></div>  
+                <div class="name-black-bg"></div>
+                <tr class="target-titles">
+                    <th></th>
+                    <th></th>
+                    <th>GOALS</th>
+                    <th>SHOTS</th>
+                    <th>ASSISTS</th>
+                    <th>TOUCHES</th>
+                    <th>SAVES</th>
+                    <th>DEMOS</th>
+                    <th>SPEED</th>
+                    <th></th>
+                </tr>
+                <tr class="target-player">
+                    <th class="name"></th>
+                    <td class="id"></td>
+                    <td class="goals"></td>
+                    <td class="shots"></td>
+                    <td class="assists"></td>
+                    <td class="touches"></td>
+                    <td class="saves"></td>
+                    <td class="demos"></td>
+                    <td class="speed"></td>
+                </table>
+        <div class="target-boost-circle">
+            <table class="target-boost">
+                <tr>TPC-BOOST</tr>
+                <th>TPC-BOOST</th>
+                <tr class="boost"></tr>  
+        </div>
+        <div id="boost-circle" class="BoostCircle"></div>
+        <script>
+            const WsSubscribers = {
+                __subscribers: {},
+                websocket: undefined,
+                webSocketConnected: false,
+                registerQueue: [],
+                init: function(port, debug, debugFilters) {
+                    port = port || 49322;
+                    debug = debug || false;
+                    if (debug) {
+                        if (debugFilters !== undefined) {
+                            console.warn("WebSocket Debug Mode enabled with filtering. Only events not in the filter list will be dumped");
+                        } else {
+                            console.warn("WebSocket Debug Mode enabled without filters applied. All events will be dumped to console");
+                            console.warn("To use filters, pass in an array of 'channel:event' strings to the second parameter of the init function");
+                        }
+                    }
+                    WsSubscribers.webSocket = new WebSocket("ws://localhost:" + port);
+                    WsSubscribers.webSocket.onmessage = function (event) {
+                        let jEvent = JSON.parse(event.data);
+                        if (!jEvent.hasOwnProperty('event')) {
+                            return;
+                        }
+                        let eventSplit = jEvent.event.split(':');
+                        let channel = eventSplit[0];
+                        let event_event = eventSplit[1];
+                        if (debug) {
+                            if (!debugFilters) {
+                                console.log(channel, event_event, jEvent);
+                            } else if (debugFilters && debugFilters.indexOf(jEvent.event) < 0) {
+                                console.log(channel, event_event, jEvent);
+                            }
+                        }
+                        WsSubscribers.triggerSubscribers(channel, event_event, jEvent.data);
+                    };
+                    WsSubscribers.webSocket.onopen = function () {
+                        WsSubscribers.triggerSubscribers("ws", "open");
+                        WsSubscribers.webSocketConnected = true;
+                        WsSubscribers.registerQueue.forEach((r) => {
+                            WsSubscribers.send("wsRelay", "register", r);
+                        });
+                        WsSubscribers.registerQueue = [];
+                    };
+                    WsSubscribers.webSocket.onerror = function () {
+                        WsSubscribers.triggerSubscribers("ws", "error");
+                        WsSubscribers.webSocketConnected = false;
+                    };
+                    WsSubscribers.webSocket.onclose = function () {
+                        WsSubscribers.triggerSubscribers("ws", "close");
+                        WsSubscribers.webSocketConnected = false;
+                    };
+                },
+                /**
+                 * Add callbacks for when certain events are thrown
+                 * Execution is guaranteed to be in First In First Out order
+                 * @param channels
+                 * @param events
+                 * @param callback
+                 */
+                subscribe: function(channels, events, callback) {
+                    if (typeof channels === "string") {
+                        let channel = channels;
+                        channels = [];
+                        channels.push(channel);
+                    }
+                    if (typeof events === "string") {
+                        let event = events;
+                        events = [];
+                        events.push(event);
+                    }
+                    channels.forEach(function(c) {
+                        events.forEach(function (e) {
+                            if (!WsSubscribers.__subscribers.hasOwnProperty(c)) {
+                                WsSubscribers.__subscribers[c] = {};
+                            }
+                            if (!WsSubscribers.__subscribers[c].hasOwnProperty(e)) {
+                                WsSubscribers.__subscribers[c][e] = [];
+                                if (WsSubscribers.webSocketConnected) {
+                                    WsSubscribers.send("wsRelay", "register", `${c}:${e}`);
+                                } else {
+                                    WsSubscribers.registerQueue.push(`${c}:${e}`);
+                                }
+                            }
+                            WsSubscribers.__subscribers[c][e].push(callback);
+                        });
+                    })
+                },
+                clearEventCallbacks: function (channel, event) {
+                    if (WsSubscribers.__subscribers.hasOwnProperty(channel) && WsSubscribers.__subscribers[channel].hasOwnProperty(event)) {
+                        WsSubscribers.__subscribers[channel] = {};
+                    }
+                },
+                triggerSubscribers: function (channel, event, data) {
+                    if (WsSubscribers.__subscribers.hasOwnProperty(channel) && WsSubscribers.__subscribers[channel].hasOwnProperty(event)) {
+                        WsSubscribers.__subscribers[channel][event].forEach(function(callback) {
+                            if (callback instanceof Function) {
+                                callback(data);
+                            }
+                        });
+                    }
+                },
+                send: function (channel, event, data) {
+                    if (typeof channel !== 'string') {
+                        console.error("Channel must be a string");
+                        return;
+                    }
+                    if (typeof event !== 'string') {
+                        console.error("Event must be a string");
+                        return;
+                    }
+                    if (channel === 'local') {
+                        this.triggerSubscribers(channel, event, data);
+                    } else {
+                        let cEvent = channel + ":" + event;
+                        WsSubscribers.webSocket.send(JSON.stringify({
+                            'event': cEvent,
+                            'data': data
+                        }));
+                    }
+                }
+            };
+
+            // Clock
+
+            $(() => {
+                WsSubscribers.init(49322, true);
+                WsSubscribers.subscribe("game", "update_state", (d) => {
+                    let Time = d['game']['time_seconds']
+                    let Minutes = Math.floor(Time / 60)
+                    let Seconds = Time % 60
+                    let ClockTime1 = (Minutes + ":0" + Seconds)
+                    let ClockTime2 = (Minutes + ":" + Seconds)
+
+                    if (Seconds < 10)
+                        $(".scorebug .clock .time").text(ClockTime1);                    
+                    if (Seconds > 9)
+                        $(".scorebug .clock .time").text(ClockTime2);
+
+            })});
+
+            //Match Banner
+
+                WsSubscribers.init(49322, true);
+                WsSubscribers.subscribe("game", "update_state", (d) => {
+                    let LeftTeamScore = d['game']['teams'][0]['score']
+                    let LeftTeamName = d['game']['teams'][0]['name']
+                    let RightTeamScore = d['game']['teams'][1]['score']
+                    let RightTeamName = d['game']['teams'][1]['name']
+
+                    $(".match-banner .blue-match-score .game1-score").text(LeftTeamScore);
+                    $(".match-banner .blue-match-score .team-name").text(LeftTeamName);
+                    $(".match-banner .orange-match-score .game1-score").text(RightTeamScore);
+                    $(".match-banner .orange-match-score .team-name").text(RightTeamName);
+
+
+                    if (LeftTeamScore > RightTeamScore) {
+                        $(".blue-match-score").css({fontColor: "#006600"})
+                    }
+                });
+
+
+            //Team Left & Team Right
+
+            $(() => {
+                WsSubscribers.init(49322, true);
+                WsSubscribers.subscribe("game", "update_state", (d) => {
+                    let LeftTeam = d['game']['teams'][0]['name'];
+                    let LeftTeamPrimaryColor = d['game']['teams'][0]['color_primary'];
+                    let LeftTeamSecondaryColor = d['game']['teams'][0]['color_secondary'];
+                    let RightTeam = d['game']['teams'][1]['name'];
+                    let RightTeamPrimaryColor = d['game']['teams'][1]['color_primary'];
+                    let RightTeamSecondaryColor = d['game']['teams'][1]['color_secondary'];
+
+                    $(".scorebug .team-left .score").text(d['game']['teams'][0]['score']);
+                    $(".scorebug .team-right .score").text(d['game']['teams'][1]['score']);
+                    $(".scorebug .team-left .name").text(d['game']['teams'][0]['name']);
+                    $(".scorebug .team-right .name").text(d['game']['teams'][1]['name']);
+      
+                    // $(element).attr(attribute, value)
+                    if (LeftTeam === d['game']['teams'][0]['name']) {
+                        $(".team-left").css({backgroundColor: LeftTeamPrimaryColor, color: LeftTeamSecondaryColor});
+                        $(".team-left").css({borderColor: LeftTeamSecondaryColor});
+                        // $(".team-left").css({"background-image": 'url("C:\Users\Matt\Downloads\rl-svg-icons-master\rl-svg-icons-master\stat-icons\goal.svg")'});
+
+
+                    if (RightTeam === d['game']['teams'][1]['name']) {
+                        $(".team-right").css({backgroundColor: RightTeamPrimaryColor, color: RightTeamSecondaryColor});
+                        $(".team-right").css({borderColor: RightTeamSecondaryColor});
+                    // if (LeftTeam === 'DUCKS') {
+                    //     $(".team-left-logo").css({backgroundImage: url("C:/Users/Matt/Documents/Overlay/OIP.jpg")});
+
+                    
+
+            }}})});
+
+            // Player Stats
+
+            WsSubscribers.subscribe("game", "update_state", (d) => {  
+                const players = Object.values(d['players']);
+                for (let i=0; i < 7; i++){
+
+                let LeftTeamPrimaryColor = d['game']['teams'][0]['color_primary']
+                let LeftTeamSecondaryColor = d['game']['teams'][0]['color_secondary']
+                let RightTeamPrimaryColor = d['game']['teams'][1]['color_primary']
+                let RightTeamSecondaryColor = d['game']['teams'][1]['color_secondary']
+                
+                // if (Player1_team === d['game']['teams'][0]['name']) {
+                //     $(".blue-team").css({backgroundColor: LeftTeamPrimaryColor, color: LeftTeamSecondaryColor});
+                //     $(".blue-team").css({borderColor: LeftTeamSecondaryColor});
+
+                // if (Player1_team === d['game']['teams'][1]['name']) {
+                //     $(".orange-team").css({backgroundColor: RightTeamPrimaryColor, color: RightTeamSecondaryColor});
+                //     $(".orange-team").css({borderColor: RightTeamSecondaryColor});
+
+                let Player1_name = players['0']['name']
+                let Player1_team = players['0']['team']
+                let Player1_id = players['0']['id']
+                let Player1_score = players['0']['score']
+                let Player1_goals = players['0']['goals']
+                let Player1_shots= players['0']['shots']
+                let Player1_assists = players['0']['assists']
+                let Player1_saves = players['0']['saves']
+                let Player1_speed = players['0']['speed']
+                let Player1_boost = players['0']['boost']
+                let Player1_demos = players['0']['demos']
+                const Player1 = [Player1_name, Player1_team, Player1_id, Player1_score, Player1_goals, Player1_shots, Player1_assists, Player1_saves, Player1_speed, Player1_boost, Player1_demos]
+                const Player1Stats = [Player1_name, Player1_score, Player1_goals, Player1_shots, Player1_assists, Player1_saves, Player1_speed, Player1_boost, Player1_demos]
+
+                let Player2_name = players['1']['name']
+                let Player2_team = players['1']['team']
+                let Player2_id = players['1']['id']
+                let Player2_score = players['1']['score']
+                let Player2_goals = players['1']['goals']
+                let Player2_shots= players['1']['shots']
+                let Player2_assists = players['1']['assists']
+                let Player2_saves = players['1']['saves']
+                let Player2_speed = players['1']['speed']
+                let Player2_boost = players['1']['boost']
+                let Player2_demos = players['1']['demos']
+                const Player2 = [Player2_name, Player2_team, Player2_id, Player2_score, Player2_goals, Player2_shots, Player2_assists, Player2_saves, Player2_speed, Player2_boost, Player2_demos]
+                const Player2Stats = [Player2_name, Player2_score, Player2_goals, Player2_shots, Player2_assists, Player2_saves, Player2_speed, Player2_boost, Player2_demos]
+
+                let Player3_name = players['2']['name']
+                let Player3_team = players['2']['team']
+                let Player3_id = players['2']['id']
+                let Player3_score = players['2']['score']
+                let Player3_goals = players['2']['goals']
+                let Player3_shots= players['2']['shots']
+                let Player3_assists = players['2']['assists']
+                let Player3_saves = players['2']['saves']
+                let Player3_speed = players['2']['speed']
+                let Player3_boost = players['2']['boost']
+                let Player3_demos = players['2']['demos']
+                const Player3 = [Player3_name, Player3_team, Player3_id, Player3_score, Player3_goals, Player3_shots, Player3_assists, Player3_saves, Player3_speed, Player3_boost, Player3_demos]
+                const Player3Stats = [Player3_name, Player3_score, Player3_goals, Player3_shots, Player3_assists, Player3_saves, Player3_speed, Player3_boost, Player3_demos]
+
+                let Player4_name = players['3']['name']
+                let Player4_team = players['3']['team']
+                let Player4_id = players['3']['id']
+                let Player4_score = players['3']['score']
+                let Player4_goals = players['3']['goals']
+                let Player4_shots= players['3']['shots']
+                let Player4_assists = players['3']['assists']
+                let Player4_saves = players['3']['saves']
+                let Player4_speed = players['3']['speed']
+                let Player4_boost = players['3']['boost']
+                let Player4_demos = players['3']['demos']
+                const Player4 = [Player4_name, Player4_team, Player4_id, Player4_score, Player4_goals, Player4_shots, Player4_assists, Player4_saves, Player4_speed, Player4_boost, Player4_demos]
+                const Player4Stats = [Player4_name, Player4_score, Player4_goals, Player4_shots, Player4_assists, Player4_saves, Player4_speed, Player4_boost, Player4_demos]
+
+                let Player5_name = players['4']['name']
+                let Player5_team = players['4']['team']
+                let Player5_id = players['4']['id']
+                let Player5_score = players['4']['score']
+                let Player5_goals = players['4']['goals']
+                let Player5_shots= players['4']['shots']
+                let Player5_assists = players['4']['assists']
+                let Player5_saves = players['4']['saves']
+                let Player5_speed = players['4']['speed']
+                let Player5_boost = players['4']['boost']
+                let Player5_demos = players['4']['demos']
+                const Player5 = [Player5_name, Player5_team, Player5_id, Player5_score, Player5_goals, Player5_shots, Player5_assists, Player5_saves, Player5_speed, Player5_boost, Player5_demos]
+                const Player5Stats = [Player5_name, Player5_score, Player5_goals, Player5_shots, Player5_assists, Player5_saves, Player5_speed, Player5_boost, Player5_demos]
+
+                let Player6_name = players['5']['name']
+                let Player6_team = players['5']['team']
+                let Player6_id = players['5']['id']
+                let Player6_score = players['5']['score']
+                let Player6_goals = players['5']['goals']
+                let Player6_shots= players['5']['shots']
+                let Player6_assists = players['5']['assists']
+                let Player6_saves = players['5']['saves']
+                let Player6_speed = players['5']['speed']
+                let Player6_boost = players['5']['boost']
+                let Player6_demos = players['5']['demos']
+                const Player6 = [Player6_name, Player6_team, Player6_id, Player6_score, Player6_goals, Player6_shots, Player6_assists, Player6_saves, Player6_speed, Player6_boost, Player6_demos]
+                const Player6Stats = [Player6_name, Player6_score, Player6_goals, Player6_shots, Player6_assists, Player6_saves, Player6_speed, Player6_boost, Player6_demos]
+
+                // if (Player7_name = players['6']['name']){
+                // let Player7_name = players['6']['name']
+                // let Player7_team = players['6']['team']
+                // let Player7_id = players['6']['id']
+                // let Player7_score = players['6']['score']
+                // let Player7_goals = players['6']['goals']
+                // let Player7_shots= players['6']['shots']
+                // let Player7_assists = players['6']['assists']
+                // let Player7_saves = players['6']['saves']
+                // let Player7_speed = players['6']['speed']
+                // let Player7_boost = players['6']['boost']
+                // let Player7_demos = players['6']['demos']
+                // const Player7 = [Player7_name, Player7_team, Player7_id, Player7_score, Player7_goals, Player7_shots, Player7_assists, Player7_saves, Player7_speed, Player7_boost, Player7_demos]
+                // const Player7Stats = [Player7_name, Player7_score, Player7_goals, Player7_shots, Player7_assists, Player7_saves, Player7_speed, Player7_boost, Player7_demos]
+                // }
+                // let Player8_name = players['7']['name']
+                // let Player8_team = players['7']['team']
+                // let Player8_id = players['7']['id']
+                // let Player8_score = players['7']['score']
+                // let Player8_goals = players['7']['goals']
+                // let Player8_shots= players['7']['shots']
+                // let Player8_assists = players['7']['assists']
+                // let Player8_saves = players['7']['saves']
+                // let Player8_speed = players['7']['speed']
+                // let Player8_boost = players['7']['boost']
+                // let Player8_demos = players['7']['demos']
+                // const Player8 = [Player8_name, Player8_team, Player8_id, Player8_score, Player8_goals, Player8_shots, Player8_assists, Player8_saves, Player8_speed, Player8_boost, Player8_demos]
+                // const Player8Stats = [Player8_name, Player8_score, Player8_goals, Player8_shots, Player8_assists, Player8_saves, Player8_speed, Player8_boost, Player8_demos]
+                
+
+
+                if (Player1_team === 0) {
+                    $(".blue-player1 .bp1-bio .name").text(Player1_name);
+                    $(".blue-player1 .bp1-stats .score").text(Player1_score);
+                    $(".blue-player1 .bp1-stats .goals").text(Player1_goals);
+                    $(".blue-player1 .bp1-stats .shots").text(Player1_shots);
+                    $(".blue-player1 .bp1-stats .assists").text(Player1_assists);
+                    $(".blue-player1 .bp1-stats .saves").text(Player1_saves);
+                    $(".blue-player1 .bp1-boost .boost").text(Player1_boost);
+                    $(".blue-player1 .bp1-speed .speed").text(Player1_speed);
+                    $(".player-1").css({top: '100px', left: '10px'})
+                    $(".blue-player1").css({backgroundColor: LeftTeamPrimaryColor, color: LeftTeamSecondaryColor});
+
+                } 
+                if (Player1_team === 1) {
+                    $(".orange-player1 .op1-bio .name").text(Player1_name);
+                    $(".orange-player1 .op1-stats .score").text(Player1_score);
+                    $(".orange-player1 .op1-stats .goals").text(Player1_goals);
+                    $(".orange-player1 .op1-stats .shots").text(Player1_shots);
+                    $(".orange-player1 .op1-stats .assists").text(Player1_assists);
+                    $(".orange-player1 .op1-stats .saves").text(Player1_saves);
+                    $(".orange-player1 .op1-boost .boost").text(Player1_boost);
+                    $(".orange-player1 .op1-speed .speed").text(Player1_speed);
+                    $("player-1").css({top:'100px', left:'600px'})
+                    $(".orange-player1").css({backgroundColor: RightTeamPrimaryColor, color: RightTeamSecondaryColor})
+
+                }
+                if (Player2_team === 0) {
+                    $(".blue-player2 .bp2-bio .name").text(Player2_name);
+                    $(".blue-player2 .bp2-stats .score").text(Player2_score);
+                    $(".blue-player2 .bp2-stats .goals").text(Player2_goals);
+                    $(".blue-player2 .bp2-stats .shots").text(Player2_shots);
+                    $(".blue-player2 .bp2-stats .assists").text(Player2_assists);
+                    $(".blue-player2 .bp2-stats .saves").text(Player2_saves);
+                    $(".blue-player2 .bp2-boost .boost").text(Player2_boost);
+                    $(".blue-player2 .bp2-speed .speed").text(Player2_speed);           
+                } 
+                if (Player2_team === 1) {
+                    $(".orange-player2 .op2-bio .name").text(Player2_name);
+                    $(".orange-player2 .op2-stats .score").text(Player2_score);
+                    $(".orange-player2 .op2-stats .goals").text(Player2_goals);
+                    $(".orange-player2 .op2-stats .shots").text(Player2_shots);
+                    $(".orange-player2 .op2-stats .assists").text(Player2_assists);
+                    $(".orange-player2 .op2-stats .saves").text(Player2_saves);
+                    $(".orange-player2 .op2-boost .boost").text(Player2_boost);
+                    $(".orange-player2 .op2-speed .speed").text(Player2_speed);
+                    $("player-2").css({top:'200px', left:'600px'})
+                }
+                if (Player3_team === 0) {
+                    $(".blue-player3 .bp3-bio .name").text(Player3_name);
+                    $(".blue-player3 .bp3-stats .score").text(Player3_score);
+                    $(".blue-player3 .bp3-stats .goals").text(Player3_goals);
+                    $(".blue-player3 .bp3-stats .shots").text(Player3_shots);
+                    $(".blue-player3 .bp3-stats .assists").text(Player3_assists);
+                    $(".blue-player3 .bp3-stats .saves").text(Player3_saves);
+                    $(".blue-player3 .bp3-boost .boost").text(Player3_boost);
+                    $(".blue-player3 .bp3-speed .speed").text(Player3_speed);            
+                }
+                if (Player3_team === 1) {
+                    $(".orange-player3 .op3-bio .name").text(Player3_name);
+                    $(".orange-player3 .op3-stats .score").text(Player3_score);
+                    $(".orange-player3 .op3-stats .goals").text(Player3_goals);
+                    $(".orange-player3 .op3-stats .shots").text(Player3_shots);
+                    $(".orange-player3 .op3-stats .assists").text(Player3_assists);
+                    $(".orange-player3 .op3-stats .saves").text(Player3_saves);
+                    $(".orange-player3 .op3-boost .boost").text(Player3_boost);
+                    $(".orange-player3 .op3-speed .speed").text(Player3_speed);
+                    $("player-3").css({top:'300px', left:'600px'})
+                }
+                if (Player4_team === 0) {
+                    $(".blue-player4 .bp4-bio .name").text(Player4_name);
+                    $(".blue-player4 .bp4-stats .score").text(Player4_score);
+                    $(".blue-player4 .bp4-stats .goals").text(Player4_goals);
+                    $(".blue-player4 .bp4-stats .shots").text(Player4_shots);
+                    $(".blue-player4 .bp4-stats .assists").text(Player4_assists);
+                    $(".blue-player4 .bp4-stats .saves").text(Player4_saves);
+                    $(".blue-player4 .bp4-boost .boost").text(Player4_boost);
+                    $(".blue-player4 .bp4-speed .speed").text(Player4_speed);            
+                } 
+                if (Player4_team === 1) {
+                    $(".orange-player4 .op4-bio .name").text(Player4_name);
+                    $(".orange-player4 .op4-stats .score").text(Player4_score);
+                    $(".orange-player4 .op4-stats .goals").text(Player4_goals);
+                    $(".orange-player4 .op4-stats .shots").text(Player4_shots);
+                    $(".orange-player4 .op4-stats .assists").text(Player4_assists);
+                    $(".orange-player4 .op4-stats .saves").text(Player4_saves);
+                    $(".orange-player4 .op4-boost .boost").text(Player4_boost);
+                    $(".orange-player4 .op4-speed .speed").text(Player4_speed);
+                    $("player-4").css({top:'400px', left:'600px'})
+                } 
+                if (Player5_team === 0) {
+                    $(".blue-player5 .bp5-bio .name").text(Player5_name);
+                    $(".blue-player5 .bp5-stats .score").text(Player5_score);
+                    $(".blue-player5 .bp5-stats .goals").text(Player5_goals);
+                    $(".blue-player5 .bp5-stats .shots").text(Player5_shots);
+                    $(".blue-player5 .bp5-stats .assists").text(Player5_assists);
+                    $(".blue-player5 .bp5-stats .saves").text(Player5_saves);
+                    $(".blue-player5 .bp5-boost .boost").text(Player5_boost);
+                    $(".blue-player5 .bp5-speed .speed").text(Player5_speed);            
+                } 
+                if (Player5_team === 1) {
+                    $(".orange-player5 .op5-bio .name").text(Player5_name);
+                    $(".orange-player5 .op5-stats .score").text(Player5_score);
+                    $(".orange-player5 .op5-stats .goals").text(Player5_goals);
+                    $(".orange-player5 .op5-stats .shots").text(Player5_shots);
+                    $(".orange-player5 .op5-stats .assists").text(Player5_assists);
+                    $(".orange-player5 .op5-stats .saves").text(Player5_saves);
+                    $(".orange-player5 .op5-boost .boost").text(Player5_boost);
+                    $(".orange-player5 .op5-speed .speed").text(Player5_speed);
+                    $("player-5").css({top:'500px', left:'600px'})
+                }
+                if (Player6_team === 0) {
+                    $(".blue-player6 .bp6-bio .name").text(Player6_name);
+                    $(".blue-player6 .bp6-stats .score").text(Player6_score);
+                    $(".blue-player6 .bp6-stats .goals").text(Player6_goals);
+                    $(".blue-player6 .bp6-stats .shots").text(Player6_shots);
+                    $(".blue-player6 .bp6-stats .assists").text(Player6_assists);
+                    $(".blue-player6 .bp6-stats .saves").text(Player6_saves);
+                    $(".blue-player6 .bp6-boost .boost").text(Player6_boost);
+                    $(".blue-player6 .bp6-speed .speed").text(Player6_speed);            
+                } 
+                if (Player6_team === 1) {
+                    $(".orange-player6 .op6-bio .name").text(Player6_name);
+                    $(".orange-player6 .op6-stats .score").text(Player6_score);
+                    $(".orange-player6 .op6-stats .goals").text(Player6_goals);
+                    $(".orange-player6 .op6-stats .shots").text(Player6_shots);
+                    $(".orange-player6 .op6-stats .assists").text(Player6_assists);
+                    $(".orange-player6 .op6-stats .saves").text(Player6_saves);
+                    $(".orange-player6 .op6-boost .boost").text(Player6_boost);
+                    $(".orange-player6 .op6-speed .speed").text(Player6_speed);
+                    $("player-6").css({top:'600px', left:'600px'})
+                }
+                // if (Player7_team === 0) {
+                //     $(".blue-player7 .bp7-bio .name").text(Player7_name);
+                //     $(".blue-player7 .bp7-stats .score").text(Player7_score);
+                //     $(".blue-player7 .bp7-stats .goals").text(Player7_goals);
+                //     $(".blue-player7 .bp7-stats .shots").text(Player7_shots);
+                //     $(".blue-player7 .bp7-stats .assists").text(Player7_assists);
+                //     $(".blue-player7 .bp7-stats .saves").text(Player7_saves);
+                //     $(".blue-player7 .bp7-boost .boost").text(Player7_boost);
+                //     $(".blue-player7 .bp7-speed .speed").text(Player7_speed);             
+                // } 
+                // if (Player7_team === 1) {
+                //     $(".orange-player7 .op7-bio .name").text(Player7_name);
+                //     $(".orange-player7 .op7-stats .score").text(Player7_score);
+                //     $(".orange-player7 .op7-stats .goals").text(Player7_goals);
+                //     $(".orange-player7 .op7-stats .shots").text(Player7_shots);
+                //     $(".orange-player7 .op7-stats .assists").text(Player7_assists);
+                //     $(".orange-player7 .op7-stats .saves").text(Player7_saves);
+                //     $(".orange-player7 .op7-boost .boost").text(Player7_boost);
+                //     $(".orange-player7 .op7-speed .speed").text(Player7_speed);
+                //     $("player-7").css({top:'700px', left:'600px'})
+                // }
+                // if (Player8_team === 0) {
+                //     $(".blue-player8 .bp8-bio .name").text(Player8_name);
+                //     $(".blue-player8 .bp8-stats .score").text(Player8_score);
+                //     $(".blue-player8 .bp8-stats .goals").text(Player8_goals);
+                //     $(".blue-player8 .bp8-stats .shots").text(Player8_shots);
+                //     $(".blue-player8 .bp8-stats .assists").text(Player8_assists);
+                //     $(".blue-player8 .bp8-stats .saves").text(Player8_saves);
+                //     $(".blue-player8 .bp8-boost .boost").text(Player8_boost);
+                //     $(".blue-player8 .bp8-speed .speed").text(Player8_speed);            
+                // } 
+                // if (Player8_team === 1) {
+                //     $(".orange-player8 .op8-bio .name").text(Player8_name);
+                //     $(".orange-player8 .op8-stats .score").text(Player8_score);
+                //     $(".orange-player8 .op8-stats .goals").text(Player8_goals);
+                //     $(".orange-player8 .op8-stats .shots").text(Player8_shots);
+                //     $(".orange-player8 .op8-stats .assists").text(Player8_assists);
+                //     $(".orange-player8 .op8-stats .saves").text(Player8_saves);
+                //     $(".orange-player8 .op8-boost .boost").text(Player8_boost);
+                //     $(".orange-player8 .op8-speed .speed").text(Player8_speed);
+                //     $("player-1").css({top:'100px', left:'600px'})
+                // } 
+                
+
+            }}); 
+
+            // Statfeed Event
+
+            $(() => {
+                WsSubscribers.init(49322, true);
+                WsSubscribers.subscribe("game", "statfeed_event", (d) => {
+                    
+
+                    $(".scorebug .event_name .event_name").text(d['event_name']);
+                    $(".scorebug .main_target .id").text(d['main_target']['id']);
+                    $(".scorebug .main_target .name").text(d['main_target']['name']);
+                    $(".scorebug .main_target .team_num").text(d['main_target']['team_num']);
+                    $(".scorebug .secondary_target .id").text(d['secondary_target']['id']);
+                    $(".scorebug .secondary_target .name").text(d['secondary_target']['name']);
+                    $(".scorebug .secondary_target .team_num").text(d['secondary_target']['team_num']);
+                    $(".scorebug .type .type").text(d['type']);
+                    $(".scorebug .team.right .time").text(d['game']['time_seconds']);
+                });
+            });  
+                    
+            // Player Card
+
+            WsSubscribers.subscribe("game", "update_state", (d) => {
+    
+                let playerTarget = d['players'][d['game']['target']];
+                let LeftTeamPrimaryColor = d['game']['teams'][0]['color_primary'];
+                let LeftTeamSecondaryColor = d['game']['teams'][0]['color_secondary'];
+                let RightTeamPrimaryColor = d['game']['teams'][1]['color_primary'];
+                let RightTeamSecondaryColor = d['game']['teams'][1]['color_secondary'];
+
+                if (!playerTarget) {
+                    $('.player-card').hide();
+                    return;
+                }
+    
+                $('.player-card').show();
+                $('.player-card .target-player .name').text(playerTarget.name);
+                $('.player-card .target-player .team').text(playerTarget.team);
+                $('.player-card .target-player .score').text(playerTarget.score);
+                $('.player-card .target-player .goals').text(playerTarget.goals);
+                $('.player-card .target-player .shots').text(playerTarget.shots);
+                $('.player-card .target-player .assists').text(playerTarget.assists);
+                $('.player-card .target-player .touches').text(playerTarget.touches);
+                $('.player-card .target-player .saves').text(playerTarget.saves);
+                $('.player-card .target-player .demos').text(playerTarget.demos);
+                $('.player-card .target-player .speed').text(playerTarget.speed);
+
+                $('.target-boost-circle .target-boost .boost').text(playerTarget.boost);
+                $('.target-boost-circle .target-boost .boost-bg').css('width', playerTarget.boost + '%');
+    
+                if (playerTarget.team === 0) {
+                    $(".player-card").css({backgroundColor: LeftTeamPrimaryColor, color: LeftTeamSecondaryColor});
+                } else {
+                    $(".player-card").css({backgroundColor: RightTeamPrimaryColor, color: RightTeamSecondaryColor});
+                }
+            });
+
+//needed to show up
+(function($){
+
+function radialProgress($obj, options) {
+  var defaults = {
+    "inline": true,
+    "font-size": 40,
+    "font-family": "Helvetica, Arial, sans-serif",
+    "text-color": null,
+    "lines": 1,
+    "line": 0,
+    "symbol": "",
+    "margin": 0, 
+    "color": "rgb(55,123,181)",
+    "background": "rgba(0,0,0,0.1)",
+    "size": $obj.outerWidth(),
+    "fill": "5px",
+    "range": [0, 100]
+  };
+  this.options = $.extend(defaults, options);
+
+  this.first_rot_base = -135;
+  this.second_rot_base = -315;
+
+  //this does the inside %
+  
+  this.options['size'] = parseInt(this.options['size'], 10);
+  this.options['fill'] = parseInt(this.options['fill'], 10);
+  this.options['font-size'] = parseInt(this.options['font-size'], 10);
+  this.options['margin'] = Math.max(0, parseInt(this.options['margin'], 10));
+  this.options['text-color'] = this.options['text-color'] || this.options['color'];
+  
+  //gets weird if removed
+  $obj.css({
+    "position": "relative",
+    "width": this.options['size'],
+    "height": this.options['size'],
+    "display": this.options['inline'] ? "inline-block" : "block"
+  });
+    
+  //needed for the radial bar
+  this.$radialFirstHalfMask = $("<div>").appendTo($obj).css({
+    "position": "absolute",
+    "top": this.options['margin'],
+    "right": this.options['margin'],
+    "width": Math.round(this.options['size'] / 2) - this.options['margin'],
+    "height": this.options['size'] - this.options['margin'] * 2,
+    "overflow": "hidden"
+  });
+//needed for the 2nd half of the bar
+  this.$radialSecondHalfMask = $("<div>").appendTo($obj).css({
+    "position": "absolute",
+    "top": this.options['margin'],
+    "left": this.options['margin'],
+    "width": Math.round(this.options['size'] / 2) - this.options['margin'],
+    "height": this.options['size'] - this.options['margin'] * 2,
+    "overflow": "hidden"
+  });
+  //needed for the thing to show up
+  this.$radialFirstHalf = $("<div>").appendTo(this.$radialFirstHalfMask).css({
+    "box-sizing": "border-box",
+    "-moz-box-sizing": "border-box",
+    "-webkit-box-sizing": "border-box",
+    "position": "absolute",
+    "top": "0px",
+    "border-width": this.options['fill'],
+    "border-style": "solid",
+    "border-color": this.options['color'] + " " + this.options['color'] + " transparent transparent",
+    "width": "200%",
+    "height": "100%",
+    "border-radius": "50%",
+    "left": "-100%",
+    "transform": "rotate(" + this.first_rot_base + "deg)"
+  });
+
+  this.$radialSecondHalf = $("<div>").appendTo(this.$radialSecondHalfMask).css({
+    "box-sizing": "border-box",
+    "-moz-box-sizing": "border-box",
+    "-webkit-box-sizing": "border-box",
+    "position": "absolute",
+    "top": "0px",
+    "border-width": this.options['fill'],
+    "border-style": "solid",
+    "border-color": this.options['color'] + " " + this.options['color'] + " transparent transparent",
+    "width": "200%",
+    "height": "100%",
+    "border-radius": "50%",
+    "left": "0px",
+    "transform": "rotate(" + this.second_rot_base + "deg)"
+  });
+  
+  if (this.options['text-color']) {
+    this.$radialLabel = $("<div>").appendTo($obj).css({
+      "position": "absolute",
+      "font-size": this.options['font-size'] + "px",
+      "font-family": this.options['font-family'],
+      "color": this.options['text-color'],
+      "left": "50%",
+      "top": "50%",
+      "transform": "translate(-50%, -50%)"
+    });
+  }
+
+  this.perc = 0;
+  this.queue = [];
+}
+
+radialProgress.prototype.toPerc = function(options) {
+  var self = this,
+      offset = options['offset'] || 0,
+      interval_delay = 10,
+      time = options['time'] || 1000,
+      targetPerc = Math.max(0, Math.min(100, (options['perc'] - self.options['range'][0]) / (self.options['range'][1] - self.options['range'][0]) * 100)),
+      diffPerc = targetPerc - this.perc,
+      direction = diffPerc / Math.abs(diffPerc),
+      step = diffPerc / (time / interval_delay);
+  if (!this.animation) {
+    this.animation = setInterval(function() {
+      if ((direction > 0 && self.perc >= targetPerc) || (direction < 0 && self.perc <= targetPerc)) {
+        window.clearInterval(self.animation);
+        self.animation = null;
+        var next = self.queue.shift();
+        if (next) self.toPerc(next);
+        return;
+      }
+      self.perc += step;
+      var first_rot = self.first_rot_base;
+      var second_rot = self.second_rot_base;
+      if (self.perc < 50) {
+        first_rot = self.first_rot_base + (self.perc / 50) * 180;
+        second_rot = self.second_rot_base;
+      } else {
+        first_rot = self.first_rot_base + 1 * 180;
+        second_rot = self.second_rot_base + ((self.perc - 50) / 50) * 180;
+      }
+      self.$radialFirstHalf.css({
+        "transform": "rotate(" + first_rot + "deg)"
+      });
+      self.$radialSecondHalf.css({
+        "transform": "rotate(" + second_rot + "deg)"
+      });
+      if (self.$radialLabel) {
+        var value = targetPerc ? self.perc/targetPerc * (targetPerc - offset) : 0;
+        value = self.options['range'][0] + value / 100 * (self.options['range'][1] - self.options['range'][0]);
+        var text = Math.round(value + self.options['symbol']);
+        for (var ti = 0; ti < self.options['line']; ti++) text = "&nbsp;<br>" + text;
+        for (var ti = self.options['lines'] - (self.options['line'] + 1); ti > 0; ti--) text = text + "<br>&nbsp;";
+        self.$radialLabel.html(text);
+      }
+    }, interval_delay);
+  } else {
+    this.queue.push(options);
+  }
+};
+
+$.fn.radialProgress = function(func, options) {
+  if (func === "init") {
+    $(this).data("__radialProgress", new radialProgress($(this), options));
+  } else if ($(this).data("__radialProgress")) {
+    if (func === "to") $(this).data("__radialProgress").toPerc(options)
+  }
+  return this;
+};
+  
+$.fn.radialPieChart = function(func, options) {
+  if (func === "init") {
+    var sum = options['data'].reduce(function(a, item) {
+      return a + item.perc;
+    }, 0);
+    for (var i = 0; i < options['data'].length; i++) {
+      $(this).data("__pieChartSegment" + i, new radialProgress($(this), $.extend(options, options['data'][i], {'lines': options['data'].length, 'line': i })));      
+      $(this).data("__pieChartSegment" + i).toPerc({'perc': sum, 'offset': sum - options['data'][i].perc});
+      sum -= options['data'][i].perc;
+    }
+  }
+  return this;
+};
+
+$.fn.radialMultiProgress = function(func, options) {
+  if (func === "init") {
+    var space = options['space'] || 2,
+        segmentFill = Math.floor(options['fill'] / options['data'].length) - space,
+        margin = 0;
+    for (var i = 0; i < options['data'].length; i++) {
+      $(this).data("__multiProgress" + i, new radialProgress($(this), $.extend(options, options['data'][i], {'fill': segmentFill, 'margin': margin, 'lines': options['data'].length, 'line': i })));
+      margin += segmentFill + space;
+    }
+  }
+  else if (options['index'] !== undefined) {
+    if ($(this).data("__multiProgress" + options['index'])) {
+      if (func === "to") $(this).data("__multiProgress" + options['index']).toPerc(options);
+    }
+  }
+  else if (options['list'] !== undefined) {
+    for (var i = 0; i < options['list'].length; i++) {
+      if (func === "to") $(this).data("__multiProgress" + options['list'][i]['index']).toPerc(options['list'][i]);
+    }
+  }
+  return this;
+};
+  
+})(jQuery);
+
+jQuery(".boost-circle").radialProgress("init", {
+  'size': 100,
+  'fill': 5
+}).radialProgress("to", {'perc': 100, 'time': 10000}); 
+
+            
+
+        </script>
+    </body>
+</html>
+
